@@ -1,0 +1,3 @@
+rootProject.name = 'buildgradledemo'
+// サブプロジェクト
+// include 'hoge', 'fuga'

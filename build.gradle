@@ -1,0 +1,85 @@
+// build.gradle自体に必要な設定を記述
+buildscript {
+	ext {
+		springframeworkVersion = '2.3.0.RELEASE'
+		junitPlatformVersion = '1.0.1'
+		junitJupiterVersion = '5.0.1'
+		junitVersion = '5.6.2'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath "org.junit.platform:junit-platform-gradle-plugin:${junitPlatformVersion}"
+	}
+}
+
+// Gradleプラグイン
+plugins {
+	id 'org.springframework.boot' version '2.3.0.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+	id 'idea' // ideaプラグイン
+	id 'eclipse' // eclipseプラグイン
+	// コミュニティプラグイン https://plugins.gradle.org/ から入手
+}
+
+group = 'com.example'
+
+// プロジェクトのバージョン、JDKの指定
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+// リポジトリ
+repositories {
+	mavenCentral() // Mavenセントラルリポジトリの使用 https://mvnrepository.com/repos/central
+}
+
+// 拡張プロパティ
+ext {
+	junitVersion = '5.6.2'
+	assertjVersion = '3.2.0'
+}
+
+// 依存関係
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+//	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+//	implementation 'org.springframework.boot:spring-boot-starter-validation'
+//	implementation 'org.springframework.boot:spring-boot-starter-web'
+//	implementation 'org.springframework.boot:spring-boot-starter-web-services'
+	compileOnly 'org.projectlombok:lombok:1.18.12'
+//	runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
+//	runtimeOnly 'mysql:mysql-connector-java'
+	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.20'
+//	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+
+	// JUnit
+	testImplementation("org.junit.jupiter:junit-jupiter:${junitVersion}") //testImplementation 'org.junit.jupiter:junit-jupiter:5.6.2'
+	testImplementation "org.assertj:assertj-core:${assertjVersion}"
+
+	// compile, testCompile, runtime, testRuntimeは下位互換のコマンド
+}
+
+
+
+// テスト実施
+test {
+	useJUnitPlatform()
+	// コンソールにテスト結果表示
+	testLogging {
+		events "passed", "skipped", "failed"
+	}
+}
+
+// 自作タスク
+task helloWorld {
+	description = "こんにちは！します。"
+
+	doLast {
+		println "Hello, world!"
+	}
+}

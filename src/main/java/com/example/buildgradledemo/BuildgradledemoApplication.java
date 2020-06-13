@@ -1,0 +1,14 @@
+package com.example.buildgradledemo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class
+BuildgradledemoApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(BuildgradledemoApplication.class, args);
+	}
+
+}
